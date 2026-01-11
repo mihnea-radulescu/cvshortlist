@@ -1,0 +1,1 @@
+dotnet ef --project CvShortlist.SelfHosted migrations add "001-Database-Structure"

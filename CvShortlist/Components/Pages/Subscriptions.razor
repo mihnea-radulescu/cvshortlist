@@ -1,0 +1,121 @@
+@page "/Subscriptions"
+@rendermode InteractiveServer
+
+<PageTitle>Subscriptions - CV Shortlist</PageTitle>
+
+<h3>Subscriptions</h3>
+
+<section id="Subscriptions">
+    @if (_hasError)
+    {
+        <div class="alert alert-danger">Error loading subscriptions. Please refresh the page.</div>
+    }
+    else if (_isLoading)
+    {
+        <div class="alert alert-info">Loading subscriptions...</div>
+    }
+    else
+    {
+        <div class="card mb-4">
+            <div class="card-header" style="font-size: 1.075em;">My subscriptions</div>
+            <div class="card-body">
+                @if (_subscriptionViewModels.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Job openings available</th>
+                                    <th>Maximum candidate CVs per job opening</th>
+                                    <th>Date created</th>
+                                    <th>Date updated</th>
+                                    <th>Does renew?</th>
+                                    <th>Redeem one job opening from subscription?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var aSubscriptionViewModel in _subscriptionViewModels)
+                                {
+                                    <tr>
+                                        <td>@aSubscriptionViewModel.Name</td>
+                                        <td>@aSubscriptionViewModel.JobOpeningsAvailable</td>
+                                        <td>@aSubscriptionViewModel.MaxCandidateCvsPerJobOpening</td>
+                                        <td>@aSubscriptionViewModel.DateCreated</td>
+                                        <td>@aSubscriptionViewModel.DateUpdated</td>
+                                        <td>@aSubscriptionViewModel.DoesRenew</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm"
+                                                    disabled="@(!aSubscriptionViewModel.CanRedeemJobOpening)"
+                                                    @onclick="async () => await RedeemJobOpening(aSubscriptionViewModel)">
+                                                Redeem one job opening
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="card-text text-muted">No active subscriptions</p>
+                }
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header" style="font-size: 1.075em;">Available subscriptions</div>
+            <div class="card-body">
+                @if (_availableSubscriptionTiers.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Job openings for 1 month</th>
+                                    <th>Job openings for 3 months</th>
+                                    <th>Maximum candidate CVs per job opening</th>
+                                    <th>Price for 1 month</th>
+                                    <th>Price for 3 months</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var aSubscriptionTier in _availableSubscriptionTiers)
+                                {
+                                    <tr>
+                                        <td>@aSubscriptionTier.Name</td>
+                                        <td>@aSubscriptionTier.JobOpeningsAvailable</td>
+                                        <td>@aSubscriptionTier.JobOpeningsAvailableFor3MonthsForDisplay</td>
+                                        <td>@aSubscriptionTier.MaxCandidateCvsPerJobOpening</td>
+                                        <td>@aSubscriptionTier.PriceInEuroForDisplay</td>
+                                        <td>@aSubscriptionTier.PriceInEuroFor3MonthsForDisplay</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="card-text text-muted">No subscription tiers available</p>
+                }
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <p>
+                If you are interested in purchasing a subscription, please
+                <a href="@Paths.Contact" class="alert-link">contact us</a>, including in your message the subscription
+                tier of choice.
+            </p>
+            <p>
+                You will receive an email from PayPal with a payment request for the 3 months price of your selected
+                subscription. Once payment has been confirmed, the subscription becomes active, and the job openings of
+                the subscription for 3 months are made available to you.
+            </p>
+            After the 3 months have elapsed, your subscription will automatically renew, unless cancelled.
+        </div>
+    }
+</section>

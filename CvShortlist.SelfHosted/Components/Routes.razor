@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+@using CvShortlist.SelfHosted.Components.Layout
+@using CvShortlist.SelfHosted.Components.Pages
+
+<Router AppAssembly="typeof(Program).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="typeof(MainLayout)">
+            <NotFound />
+        </LayoutView>
+    </NotFound>
+</Router>

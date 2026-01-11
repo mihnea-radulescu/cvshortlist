@@ -1,0 +1,47 @@
+@page "/FAQ"
+
+<PageTitle>FAQ - CV Shortlist</PageTitle>
+
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h1 class="h2">Frequently Asked Questions</h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="accordion" id="faqAccordion">
+                @for (var i = 0; i < _faqs.Count; i++)
+                {
+                    var item = _faqs[i];
+                    var headingId = $"heading{i}";
+                    var collapseId = $"collapse{i}";
+                    var isExpanded = i == 0;
+                    var showClass = isExpanded ? "show" : string.Empty;
+                    var collapsedClass = isExpanded ? string.Empty : "collapsed";
+                    var ariaExpanded = isExpanded ? "true" : "false";
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="@headingId">
+                            <button class="accordion-button @collapsedClass"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#@collapseId"
+                                    aria-expanded="@ariaExpanded"
+                                    aria-controls="@collapseId">
+                                @item.Question
+                            </button>
+                        </h2>
+                        <div id="@collapseId"
+                             class="accordion-collapse collapse @showClass"
+                             aria-labelledby="@headingId"
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                @((MarkupString)item.Answer)
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

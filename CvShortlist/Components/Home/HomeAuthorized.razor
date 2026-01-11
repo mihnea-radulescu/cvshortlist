@@ -1,0 +1,64 @@
+@rendermode InteractiveServer
+
+<div class="container-fluid px-4">
+    <div class="row g-5">
+        <div class="col-lg-7">
+            <div class="p-4 bg-light rounded-3 shadow-sm h-100">
+                <div>
+                    <HomeCommon />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <section id="Notifications" class="p-4 bg-light rounded-3 shadow-sm h-100">
+                <div class="d-flex align-items-center mb-3">
+                    <h4 class="mb-0 me-2"><i class="bi bi-bell-fill text-warning"></i> Notifications</h4>
+                    <span class="badge bg-secondary rounded-pill">@(_notificationViewModels?.Count ?? 0)</span>
+                </div>
+                
+                @if (_hasError)
+                {
+                    <div class="alert alert-danger shadow-sm" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> Error loading data. Please refresh the page.
+                    </div>
+                }
+                else if (_isLoading)
+                {
+                    <div class="d-flex justify-content-center my-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading notifications...</span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="notifications-container">
+                        @for (var i = 0; i < _notificationViewModels!.Count; i++)
+                        {
+                            var aNotificationViewModel = _notificationViewModels![i];
+                            var aNotificationSectionId = $"notification_{i}";
+
+                            <div class="card mb-3 border-0 shadow-sm" id="@aNotificationSectionId">
+                                <div class="card-header bg-white border-bottom-0 pt-3 pb-0">
+                                    <span class="text-muted">@aNotificationViewModel.DateCreated</span>
+                                    <h6 class="card-title text-primary fs-5">@aNotificationViewModel.Title</h6>
+                                </div>
+                                <div class="card-body pt-2">
+                                    <p class="card-text text-secondary fs-5">
+                                        @((MarkupString)aNotificationViewModel.Content)
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                        @if (_notificationViewModels.Count == 0)
+                        {
+                            <div class="text-center text-muted fs-5">
+                                <p>No new notifications</p>
+                            </div>
+                        }
+                    </div>
+                }
+            </section>
+        </div>
+    </div>
+</div>

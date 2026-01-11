@@ -1,0 +1,5 @@
+<Solution>
+	<Project Path="CvShortlist.SelfHosted/CvShortlist.SelfHosted.csproj" />
+	<Project Path="CvShortlist.Test/CvShortlist.Test.csproj" />
+	<Project Path="CvShortlist/CvShortlist.csproj" />
+</Solution>

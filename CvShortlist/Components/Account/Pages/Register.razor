@@ -1,0 +1,91 @@
+﻿@page "/Account/Register"
+
+@using CvShortlist.Extensions
+@using CvShortlist.Models
+
+<PageTitle>Register - CV Shortlist</PageTitle>
+
+<h1>Register</h1>
+
+<div class="row">
+    <div class="col-lg-7">
+        <StatusMessage Message="@Message"/>
+        <EditForm EditContext="_editContext" method="post" OnSubmit="RegisterUser" FormName="register">
+            <DataAnnotationsValidator/>
+            <h2>Create a new account</h2>
+            <hr/>
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.Email" id="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com"/>
+                <label for="Input.Email">Email</label>
+                <ValidationMessage For="() => Input.Email" class="text-danger"/>
+            </div>
+            <div class="form-floating mb-3">
+                <InputText type="password" @bind-Value="Input.Password" id="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password"/>
+                <label for="Input.Password">Password</label>
+                <ValidationMessage For="() => Input.Password" class="text-danger"/>
+            </div>
+            <div class="form-floating mb-3">
+                <InputText type="password" @bind-Value="Input.ConfirmPassword" id="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password"/>
+                <label for="Input.ConfirmPassword">Confirm Password</label>
+                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger"/>
+            </div>
+
+            <div class="mb-3">
+                <InputRadioGroup @bind-Value="Input.UserType">
+                    <div class="row">
+                        @foreach (var aUserType in Enum.GetValues<ApplicationUserType>())
+                        {
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="form-check">
+                                            <InputRadio Value="aUserType" class="form-check-input" id="@($"userType_{aUserType}")" />
+                                            <label class="form-check-label fw-bold" for="@($"userType_{aUserType}")">
+                                                @aUserType.Description
+                                            </label>
+                                        </div>
+                                        <p class="card-text mt-3">
+                                            @if (aUserType == ApplicationUserType.RecruiterOrHr)
+                                            {
+                                                @:I am looking to hire candidates.
+                                            }
+                                            else if (aUserType == ApplicationUserType.Candidate)
+                                            {
+                                                @:I am looking for a job.
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </InputRadioGroup>
+                <ValidationMessage For="() => Input.UserType" class="text-danger"/>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Security Check</label>
+                <div class="mb-2">
+                    @if (!string.IsNullOrEmpty(_captchaImageBase64))
+                    {
+                        <img src="data:image/png;base64,@_captchaImageBase64" alt="Captcha" style="border: 1px solid #ccc;" />
+                    }
+                    <button type="submit" name="Input.CaptchaAction" value="refresh" class="btn btn-sm btn-secondary ms-2" formnovalidate>
+                        <i class="bi bi-arrow-clockwise"></i> Refresh
+                    </button>
+                </div>
+                <label for="captcha" class="form-label">Enter the characters shown above</label>
+                <InputText id="captcha" class="form-control" @bind-Value="Input.CaptchaInput" />
+                <ValidationMessage For="@(() => Input.CaptchaInput)" class="text-danger" />
+                @if (_captchaError)
+                {
+                    <div class="text-danger">Incorrect captcha code</div>
+                }
+                <input type="hidden" name="Input.CaptchaAnswerCrypt" value="@Input.CaptchaAnswerCrypt" />
+            </div>
+            
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+        </EditForm>
+    </div>
+</div>

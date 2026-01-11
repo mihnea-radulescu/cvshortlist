@@ -1,0 +1,2 @@
+dotnet ef --project CvShortlist migrations add "001-Db-Structure"
+dotnet ef --project CvShortlist database update

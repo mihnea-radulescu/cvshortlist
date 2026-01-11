@@ -1,0 +1,80 @@
+@page "/Contact"
+@rendermode InteractiveServer
+
+@using CvShortlist
+
+<PageTitle>Contact / Support - CV Shortlist</PageTitle>
+
+<section id="Contact" class="container-fluid px-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="p-4 bg-light rounded-3 shadow-sm h-100">
+                <h1 class="h3 mb-4 text-dark border-bottom pb-2">Contact / Support</h1>
+
+                <div class="row">
+                    <div class="col-md-8 col-lg-6">
+                        @if (_submitSuccess)
+                        {
+                            <div class="alert alert-success mt-3 shadow-sm">
+                                <i class="bi bi-check-circle-fill me-2"></i> Message sent successfully!
+                            </div>
+                        }
+                        <EditForm Model="@_supportTicketViewModel" OnValidSubmit="@HandleContactFormSubmit">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary class="text-danger mb-3" />
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label fw-bold">Name</label>
+                                <InputText id="name" class="form-control shadow-sm" @bind-Value="_supportTicketViewModel.Name" placeholder="Your name" />
+                                <ValidationMessage For="@(() => _supportTicketViewModel.Name)" class="text-danger small" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-bold">Email</label>
+                                <InputText id="email" class="form-control shadow-sm" @bind-Value="_supportTicketViewModel.Email" placeholder="name@example.com" />
+                                <ValidationMessage For="@(() => _supportTicketViewModel.Email)" class="text-danger small" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="message" class="form-label fw-bold">Message</label>
+                                <InputTextArea id="message" class="form-control shadow-sm" @bind-Value="_supportTicketViewModel.Message" rows="8" placeholder="How can we help you?" />
+                                <ValidationMessage For="@(() => _supportTicketViewModel.Message)" class="text-danger small" />
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Security Check</label>
+                                <div class="card p-3 bg-white shadow-sm mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <img src="data:image/png;base64,@_captchaInfo.CaptchaBase64Image" alt="Captcha" class="border rounded me-3" />
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" @onclick="GenerateCaptcha" title="Refresh Captcha">
+                                            <i class="bi bi-arrow-clockwise"></i> Refresh
+                                        </button>
+                                    </div>
+                                </div>
+                                <label for="captcha" class="form-label text-muted small">Enter the characters shown above</label>
+                                <InputText id="captcha" class="form-control shadow-sm" @bind-Value="_supportTicketViewModel.CaptchaInput" />
+                                <ValidationMessage For="@(() => _supportTicketViewModel.CaptchaInput)" class="text-danger small" />
+                                @if (_captchaError)
+                                {
+                                    <div class="text-danger small mt-1"><i class="bi bi-exclamation-circle-fill me-1"></i> Incorrect captcha code</div>
+                                }
+                            </div>
+
+                            <button type="submit" class="btn btn-primary px-4 shadow-sm" disabled="@_isSubmitting">
+                                @if (_isSubmitting)
+                                {
+                                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                    <span>Sending...</span>
+                                }
+                                else
+                                {
+                                    <span>Submit Ticket</span>
+                                }
+                            </button>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

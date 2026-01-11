@@ -1,0 +1,7 @@
+The Sqlite database files:
+- CvShortlist.sqlite.db
+- CvShortlist.sqlite.db-shm
+- CvShortlist.sqlite.db-wal
+are stored here.
+
+Do not delete these files, unless you want to erase all of your stored data.

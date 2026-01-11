@@ -1,0 +1,18 @@
+﻿@page "/"
+
+@using CvShortlist.Components.Home
+
+<PageTitle>Home - CV Shortlist</PageTitle>
+
+<div class="text-center mb-4">
+    <h1 class="h2 fw-bold text-primary">Welcome to CV Shortlist</h1>
+</div>
+
+<AuthorizeView>
+    <Authorized>
+        <HomeAuthorized />
+    </Authorized>
+    <NotAuthorized>
+        <HomeNotAuthorized />
+    </NotAuthorized>
+</AuthorizeView>

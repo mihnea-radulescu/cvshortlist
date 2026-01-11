@@ -1,0 +1,101 @@
+@using Microsoft.AspNetCore.Components.Web
+
+@page "/JobOpenings"
+@rendermode RenderMode.InteractiveServer
+
+<PageTitle>Job Openings - CV Shortlist</PageTitle>
+
+<h3>Job Openings</h3>
+
+<section id="JobOpeningsData">
+    @if (_hasError)
+    {
+        <div class="alert alert-danger">Error loading job openings. Please refresh the page.</div>
+    }
+    else if (_isLoading)
+    {
+        <div class="alert alert-info">Loading job openings...</div>
+    }
+    else
+    {
+        <div class="d-flex justify-content-between mb-3">
+            <button type="button" class="btn btn-primary" @onclick="CreateJobOpening">
+                Create job opening
+            </button>
+        </div>
+
+        <div class="row">
+            <section id="JobOpeningsOpenForEditing" class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-header" style="font-size: 1.075em;">Open for editing</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            @if (_editableJobOpenings.Any())
+                            {
+                                <ul>
+                                    @foreach (var anEditableJobOpening in _editableJobOpenings)
+                                    {
+                                        <li>
+                                            <a href="@string.Format(Paths.JobOpeningDisplay, anEditableJobOpening.Id)"
+                                               class="list-group-item list-group-item-action text-primary">
+                                                @anEditableJobOpening.Name
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="JobOpeningsInAnalysis" class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-header" style="font-size: 1.075em;">In analysis</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            @if (_inAnalysisJobOpenings.Any())
+                            {
+                                <ul>
+                                    @foreach (var anInAnalysisJobOpening in _inAnalysisJobOpenings)
+                                    {
+                                        <li>
+                                            <a href="@string.Format(Paths.JobOpeningDisplay, anInAnalysisJobOpening.Id)"
+                                               class="list-group-item list-group-item-action text-primary">
+                                                @anInAnalysisJobOpening.Name
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="JobOpeningsAnalysisCompleted" class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-header" style="font-size: 1.075em;">Analysis completed</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            @if (_analyzedJobOpenings.Any())
+                            {
+                                <ul>
+                                    @foreach (var anAnalyzedJob in _analyzedJobOpenings)
+                                    {
+                                        <li>
+                                            <a href="@string.Format(Paths.JobOpeningDisplay, anAnalyzedJob.Id)"
+                                               class="list-group-item list-group-item-action text-primary">
+                                                @anAnalyzedJob.Name
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    }
+</section>

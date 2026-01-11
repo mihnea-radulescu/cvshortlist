@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<UserSecretsId>d79c1c88-ee14-45b9-9e2e-970d2a40c68e</UserSecretsId>
+		<BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.AI.DocumentIntelligence" Version="1.0.0" />
+		<PackageReference Include="Azure.AI.OpenAI" Version="2.1.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.1"/>
+		<PackageReference Include="Microsoft.Extensions.Azure" Version="1.13.1" />
+		<PackageReference Include="PdfPig" Version="0.1.13" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Database\Info.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+</Project>

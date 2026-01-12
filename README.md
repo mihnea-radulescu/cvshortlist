@@ -16,7 +16,7 @@ The technology stack for this project is:
 * Entity Framework Core 10
 * Azure Cloud (Web App, SQL Database, Blob Storage, Document Intelligence, OpenAI, Communication Services, Application Insights)
 * Sqlite
-* HTML, CSS, Javascript
+* HTML, CSS, Javascript (IndexedDB, Web Crypto API)
 * external libraries: PdfPig, pdf-lib, zip.js, QRCoder, SkiaSharp
 
 In order to be able to run this project, one needs an Azure Cloud account with an active subscription, and the following resources set up in Azure (these can be looked up in the code files __ConfigurationData.cs__ and __Program.cs__):

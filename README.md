@@ -1,5 +1,5 @@
 # cvshortlist
-__CV Shortlist__ is the AI-powered web portal designed to help professional recruiters and HR departments streamline their hiring process. The most intensive step of candidate selection is the effective shortlisting of suitable candidates, out of a large pool of applications. The value proposition of CV Shortlist is to reliably and efficiently select from among hundreds or thousands of candidate applications in an automated way.
+__CV Shortlist__ is an AI-powered web portal designed to help professional recruiters and HR departments streamline their hiring process. The most intensive step of candidate selection is the effective shortlisting of suitable candidates, out of a large pool of applications. The value proposition of CV Shortlist is to reliably and efficiently select from among hundreds or thousands of candidate applications in an automated way.
 
 __CV Shortlist__ relies on modern and powerful AI technology to perform the candidate CVs shortlisting:
 * Microsoft Azure Document Intelligence - Extracting candidate information from PDF files, with full comprehension of complex layouts involving tables and columns

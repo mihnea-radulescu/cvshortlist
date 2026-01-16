@@ -5,7 +5,7 @@ __CV Shortlist__ relies on modern and powerful AI technology to perform the cand
 * Microsoft Azure Document Intelligence - Extracting candidate information from PDF files, with full comprehension of complex layouts involving tables and columns
 * OpenAI GPT-5 - Analyzing the extracted candidate data, matching it to the job opening description, and producing the shortlisting
 
-This project had initially been intended as a closed-source commercial product, but was then switched into an open-source educational and self-hosted solution. It provides two web applications:
+This project had initially been intended as a closed-source commercial product, but was then switched into an open-source educational solution, and expanded with a self-hosted option. It provides two web applications:
 * CvShortlist - the full web application, to be hosted in Azure Cloud
 * CvShortlist.SelfHosted - the self-hosted, stripped-down, web application, with only the two AI technologies as Azure Cloud dependencies
 
@@ -15,12 +15,12 @@ The technology stack for this project is:
 * Blazor 10
 * Entity Framework Core 10
 * Azure Cloud (Web App, SQL Database, Blob Storage, Document Intelligence, OpenAI, Communication Services, Application Insights)
-* Sqlite
+* SQLite
 * HTML, CSS, Javascript (IndexedDB, Web Crypto API)
 * external libraries: PdfPig, pdf-lib, zip.js, QRCoder, SkiaSharp
 
 In order to be able to run this project, one needs an Azure Cloud account with an active subscription, and the following resources set up in Azure (these can be looked up in the code files __ConfigurationData.cs__ and __Program.cs__):
-* Cloud-hosted web application - Web App, Document Intelligence, gpt-5-mini Foundry model, Storage Account, SQL Database, Application Insights, Communication Services, Email Communication Services
+* Cloud-hosted web application - Web App, Document Intelligence, gpt-5-mini Foundry model, Storage Account, SQL Database, Application Insights, Email Communication Services
 * self-hosted web application - Document Intelligence, gpt-5-mini Foundry model
 
 The configuration data should be stored:
